@@ -48,7 +48,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const addToast = useCallback((title: string, content: string) => {
     const id = Date.now() + Math.random();
     setToasts(prev => [...prev, { id, title, content }]);
-    
+
     // Auto remove toast in 4.5 seconds
     setTimeout(() => {
       removeToast(id);
@@ -80,7 +80,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     // Connect to WebSockets
     const newSocket = io('http://localhost:5000');
-    
+
     newSocket.on('connect', () => {
       console.log('Socket.io client connected successfully');
       newSocket.emit('join-user', user.id);
@@ -189,7 +189,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             }}>
               {toast.content}
             </p>
-            <button 
+            <button
               onClick={() => removeToast(toast.id)}
               style={{
                 position: 'absolute',

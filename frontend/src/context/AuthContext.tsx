@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Custom fetch wrapper that automatically appends Auth token and handles errors
   const apiFetch = async (url: string, options: RequestInit = {}): Promise<Response> => {
     const headers = new Headers(options.headers || {});
-    
+
     // Add token if it exists
     const currentToken = token || localStorage.getItem('token');
     if (currentToken) {
