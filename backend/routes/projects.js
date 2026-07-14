@@ -11,14 +11,14 @@ const checkProjectMembership = async (projectId, userId) => {
     [projectId, userId]
   );
   const project = await dbGet('SELECT * FROM projects WHERE id = ?', [projectId]);
-  
+
   if (!project) return { isMember: false, errorStatus: 404, errorMessage: 'Project not found' };
-  
+
   const isOwner = project.owner_id === userId;
   if (isOwner || member) {
     return { isMember: true, isOwner, project };
   }
-  
+
   return { isMember: false, errorStatus: 403, errorMessage: 'Access denied: Not a member of this project' };
 };
 
@@ -33,7 +33,7 @@ router.get('/', authMiddleware, async (req, res) => {
       WHERE p.owner_id = ? OR pm.user_id = ?
       ORDER BY p.created_at DESC
     `, [req.user.id, req.user.id]);
-    
+
     return res.json(projects);
   } catch (err) {
     console.error('Fetch projects error:', err);
@@ -308,7 +308,7 @@ router.put('/:id/lists/:listId', authMiddleware, async (req, res) => {
     }
 
     const updatedList = await dbGet('SELECT * FROM lists WHERE id = ?', [req.params.listId]);
-    
+
     // Notify other users on the board
     req.io.to(`project_${req.params.id}`).emit('board-updated', {
       type: 'LIST_UPDATED',
@@ -333,7 +333,7 @@ router.delete('/:id/lists/:listId', authMiddleware, async (req, res) => {
     }
 
     await dbRun('DELETE FROM lists WHERE id = ? AND project_id = ?', [req.params.listId, req.params.id]);
-    
+
     // Notify other users on the board
     req.io.to(`project_${req.params.id}`).emit('board-updated', {
       type: 'LIST_DELETED',

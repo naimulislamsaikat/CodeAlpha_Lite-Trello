@@ -8,14 +8,14 @@ const router = express.Router();
 const checkAccessByTaskId = async (taskId, userId) => {
   const task = await dbGet('SELECT * FROM tasks WHERE id = ?', [taskId]);
   if (!task) return { hasAccess: false, errorStatus: 404, errorMessage: 'Task not found' };
-  
+
   const list = await dbGet('SELECT * FROM lists WHERE id = ?', [task.list_id]);
   const project = await dbGet('SELECT * FROM projects WHERE id = ?', [list.project_id]);
   const member = await dbGet(
     'SELECT * FROM project_members WHERE project_id = ? AND user_id = ?',
     [project.id, userId]
   );
-  
+
   if (project.owner_id === userId || member) {
     return { hasAccess: true, project, task, list };
   }
@@ -90,7 +90,7 @@ router.post('/', authMiddleware, async (req, res) => {
           `${req.user.username} commented on "${task.title}": "${content.slice(0, 40)}${content.length > 40 ? '...' : ''}"`
         ]
       );
-      
+
       req.io.to(`user_${task.assignee_id}`).emit('new-notification', {
         id: notifResult.id,
         user_id: task.assignee_id,

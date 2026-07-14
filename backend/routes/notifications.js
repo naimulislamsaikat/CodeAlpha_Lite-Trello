@@ -33,11 +33,11 @@ router.put('/mark-read', authMiddleware, async (req, res) => {
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     const notification = await dbGet('SELECT * FROM notifications WHERE id = ?', [req.params.id]);
-    
+
     if (!notification) {
       return res.status(404).json({ error: 'Notification not found' });
     }
-    
+
     if (notification.user_id !== req.user.id) {
       return res.status(403).json({ error: 'Not authorized to delete this notification' });
     }

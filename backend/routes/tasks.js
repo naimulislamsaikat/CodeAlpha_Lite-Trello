@@ -8,15 +8,15 @@ const router = express.Router();
 const checkAccessByListId = async (listId, userId) => {
   const list = await dbGet('SELECT * FROM lists WHERE id = ?', [listId]);
   if (!list) return { hasAccess: false, errorStatus: 404, errorMessage: 'Column/List not found' };
-  
+
   const project = await dbGet('SELECT * FROM projects WHERE id = ?', [list.project_id]);
   if (!project) return { hasAccess: false, errorStatus: 404, errorMessage: 'Project not found' };
-  
+
   const member = await dbGet(
     'SELECT * FROM project_members WHERE project_id = ? AND user_id = ?',
     [project.id, userId]
   );
-  
+
   if (project.owner_id === userId || member) {
     return { hasAccess: true, projectId: project.id, project, list };
   }
@@ -61,7 +61,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
 // CREATE TASK
 router.post('/', authMiddleware, async (req, res) => {
   const { listId, title, description, assigneeId, priority, dueDate } = req.body;
-  
+
   if (!listId || !title) {
     return res.status(400).json({ error: 'Column ID and title are required' });
   }
@@ -109,7 +109,7 @@ router.post('/', authMiddleware, async (req, res) => {
           `${req.user.username} assigned you to the task "${title}" in project "${project.name}"`
         ]
       );
-      
+
       req.io.to(`user_${assigneeId}`).emit('new-notification', {
         id: notifResult.id,
         user_id: assigneeId,
