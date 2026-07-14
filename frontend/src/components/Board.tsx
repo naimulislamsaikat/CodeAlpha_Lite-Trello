@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
-import { 
-  Plus, Share2, Trash2, ArrowLeft, X, Search 
+import {
+  Plus, Share2, Trash2, ArrowLeft, X, Search
 } from 'lucide-react';
 import { TaskCard } from './TaskCard';
 import { TaskModal } from './TaskModal';
@@ -100,7 +100,7 @@ export const Board: React.FC = () => {
 
   useEffect(() => {
     fetchBoardDetails();
-    
+
     // Register for websocket room updates
     joinProject(projectId);
 
@@ -118,7 +118,7 @@ export const Board: React.FC = () => {
       if (data.projectId === projectId) {
         // Silently reload the updated board configuration
         fetchBoardDetails(true);
-        
+
         // Show context toast if someone else changed it
         if (data.senderId !== user?.id) {
           if (data.type === 'TASK_CREATED') {
@@ -158,7 +158,7 @@ export const Board: React.FC = () => {
     if (!taskIdStr) return;
 
     const taskId = parseInt(taskIdStr);
-    
+
     // Find task and verify if it actually changed lists
     const currentList = board?.lists.find(l => l.tasks.some(t => t.id === taskId));
     if (!currentList || currentList.id === targetListId) return;
@@ -166,9 +166,9 @@ export const Board: React.FC = () => {
     // Optimistically update frontend UI state
     setBoard(prev => {
       if (!prev) return null;
-      
+
       let draggedTask: Task | null = null;
-      
+
       const updatedLists = prev.lists.map(list => {
         // Remove task from source list
         if (list.id === currentList.id) {
@@ -204,7 +204,7 @@ export const Board: React.FC = () => {
         method: 'PUT',
         body: JSON.stringify({ listId: targetListId })
       });
-      
+
       if (!res.ok) {
         // Rollback
         fetchBoardDetails(true);
@@ -264,7 +264,7 @@ export const Board: React.FC = () => {
         method: 'POST',
         body: JSON.stringify({ listId, title: title.trim() })
       });
-      
+
       if (res.ok) {
         const newTask = await res.json();
         setBoard(prev => {
@@ -345,7 +345,7 @@ export const Board: React.FC = () => {
 
   return (
     <div className="page-wrapper animate-fade" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '20px 24px 0 24px' }}>
-      
+
       {/* Board Header */}
       <div style={{
         display: 'flex',
@@ -418,8 +418,8 @@ export const Board: React.FC = () => {
           {/* Invite Trigger */}
           {isOwner && (
             <div>
-              <button 
-                className="btn btn-secondary" 
+              <button
+                className="btn btn-secondary"
                 style={{ padding: '8px 12px', fontSize: '0.85rem' }}
                 onClick={() => setShowInviteMenu(!showInviteMenu)}
               >
@@ -462,7 +462,7 @@ export const Board: React.FC = () => {
                       <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textAlign: 'center', padding: '10px' }}>No matches found</div>
                     )}
                     {searchResults.map((u) => (
-                      <div 
+                      <div
                         key={u.id}
                         onClick={() => handleInviteUser(u.id, u.username)}
                         style={{
@@ -505,7 +505,7 @@ export const Board: React.FC = () => {
         alignItems: 'flex-start'
       }}>
         {board.lists.map((list) => (
-          <div 
+          <div
             key={list.id}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, list.id)}
@@ -532,8 +532,8 @@ export const Board: React.FC = () => {
               <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                 {list.name} <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginLeft: '6px', fontWeight: 400 }}>({list.tasks.length})</span>
               </h3>
-              
-              <button 
+
+              <button
                 onClick={() => handleDeleteList(list.id)}
                 style={{
                   background: 'none',
@@ -593,7 +593,7 @@ export const Board: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <button 
+              <button
                 onClick={() => setAddingTaskInList(prev => ({ ...prev, [list.id]: true }))}
                 style={{
                   display: 'flex',
@@ -643,7 +643,7 @@ export const Board: React.FC = () => {
             </div>
           </form>
         ) : (
-          <button 
+          <button
             onClick={() => setIsAddingList(true)}
             style={{
               width: '280px',
@@ -673,8 +673,8 @@ export const Board: React.FC = () => {
 
       {/* Task detail overlay Modal */}
       {activeTaskId && (
-        <TaskModal 
-          taskId={activeTaskId} 
+        <TaskModal
+          taskId={activeTaskId}
           projectMembers={board.members}
           onClose={() => setActiveTaskId(null)}
           onTaskDeleted={() => {

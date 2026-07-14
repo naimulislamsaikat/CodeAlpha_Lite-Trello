@@ -9,7 +9,7 @@ interface TaskCardProps {
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task, onDragStart, onClick }) => {
-  
+
   // Format due date to a friendly string
   const formatDueDate = (dateStr: string | null) => {
     if (!dateStr) return null;
@@ -75,7 +75,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onDragStart, onClick }
         }}>
           {task.priority}
         </span>
-        
+
         {task.priority === 'high' && (
           <AlertCircle size={14} style={{ color: 'var(--color-danger)' }} />
         )}

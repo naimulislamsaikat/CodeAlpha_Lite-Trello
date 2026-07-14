@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
-import { 
-  X, User, Calendar, Tag, Trash2, Send, MessageSquare, 
+import {
+  X, User, Calendar, Tag, Trash2, Send, MessageSquare,
   Clock, AlignLeft
 } from 'lucide-react';
 import type { Task, Member } from './Board';
@@ -25,8 +25,8 @@ export interface Comment {
   avatar_url: string;
 }
 
-export const TaskModal: React.FC<TaskModalProps> = ({ 
-  taskId, projectMembers, onClose, onTaskDeleted, onTaskUpdated 
+export const TaskModal: React.FC<TaskModalProps> = ({
+  taskId, projectMembers, onClose, onTaskDeleted, onTaskUpdated
 }) => {
   const { apiFetch } = useAuth();
   const { socket } = useSocket();
@@ -51,7 +51,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
   // But wait, it's very easy to query backend tasks by ID. Let's create GET /tasks/:id in backend/routes/tasks.js.
   // Before doing that, let's check: Can we fetch the project and filter, or just query it? Yes, we can query it directly in backend!
   // Let's write the frontend first, expecting `GET /tasks/:id` to work, and then I will update backend/routes/tasks.js to support GET `/api/tasks/:id`. That is extremely clean!
-  
+
   const fetchSingleTask = async () => {
     setLoading(true);
     try {
@@ -62,7 +62,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
         setTitleVal(taskData.title);
         setDescVal(taskData.description || '');
       }
-      
+
       const commentRes = await apiFetch(`/comments?taskId=${taskId}`);
       if (commentRes.ok) {
         const commentData = await commentRes.json();
@@ -216,7 +216,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
               style={{ fontSize: '1.2rem', fontWeight: 600, padding: '4px 8px', width: '70%' }}
             />
           ) : (
-            <h3 
+            <h3
               onClick={() => setEditingTitle(true)}
               style={{ fontSize: '1.25rem', fontWeight: 600, cursor: 'pointer', width: '70%' }}
               title="Click to edit title"
@@ -236,10 +236,10 @@ export const TaskModal: React.FC<TaskModalProps> = ({
           overflowY: 'auto',
           flex: 1
         }}>
-          
+
           {/* Left Panel: Description & Comments */}
           <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '28px', borderRight: '1px solid var(--border-color)' }}>
-            
+
             {/* Description */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)', fontWeight: 500 }}>
@@ -294,10 +294,10 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                 ) : (
                   comments.map((comment) => (
                     <div key={comment.id} style={{ display: 'flex', gap: '12px' }}>
-                      <img 
-                        src={comment.avatar_url} 
-                        alt={comment.username} 
-                        style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#444' }} 
+                      <img
+                        src={comment.avatar_url}
+                        alt={comment.username}
+                        style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#444' }}
                       />
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -329,7 +329,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
 
           {/* Right Panel: Assignee, Priority, Due Date Settings */}
           <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            
+
             {/* Assignee Selection */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
@@ -378,8 +378,8 @@ export const TaskModal: React.FC<TaskModalProps> = ({
 
             {/* Actions: Delete */}
             <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '20px' }}>
-              <button 
-                className="btn btn-danger" 
+              <button
+                className="btn btn-danger"
                 onClick={handleDelete}
                 style={{ width: '100%', fontSize: '0.85rem', padding: '8px' }}
               >

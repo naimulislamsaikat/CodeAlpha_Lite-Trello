@@ -56,7 +56,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ onClose, onSuccess }
           borderBottom: '1px solid var(--border-color)'
         }}>
           <h3 style={{ fontSize: '1.2rem', fontWeight: 600 }}>Create New Project Board</h3>
-          <button 
+          <button
             onClick={onClose}
             style={{
               background: 'none',

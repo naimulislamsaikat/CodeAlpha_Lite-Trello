@@ -244,7 +244,7 @@ export const Navbar: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
           {/* Notifications Trigger */}
           <div ref={notifRef} style={{ position: 'relative' }}>
-            <button 
+            <button
               onClick={() => setShowNotifications(!showNotifications)}
               style={{
                 background: 'none',
@@ -309,7 +309,7 @@ export const Navbar: React.FC = () => {
                 }}>
                   <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Notifications</span>
                   {unreadCount > 0 && (
-                    <button 
+                    <button
                       onClick={markNotificationsAsRead}
                       style={{
                         background: 'none',
@@ -339,7 +339,7 @@ export const Navbar: React.FC = () => {
                     </div>
                   ) : (
                     notifications.map((notif) => (
-                      <div 
+                      <div
                         key={notif.id}
                         style={{
                           padding: '10px 16px',
@@ -364,7 +364,7 @@ export const Navbar: React.FC = () => {
                           }}>
                             {notif.title}
                           </span>
-                          <button 
+                          <button
                             onClick={() => deleteNotification(notif.id)}
                             style={{
                               background: 'none',
@@ -402,7 +402,7 @@ export const Navbar: React.FC = () => {
 
           {/* User Profile Menu */}
           <div ref={profileRef} style={{ position: 'relative' }}>
-            <button 
+            <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               style={{
                 background: 'none',
@@ -414,8 +414,8 @@ export const Navbar: React.FC = () => {
                 padding: '4px'
               }}
             >
-              <img 
-                src={user.avatar_url} 
+              <img
+                src={user.avatar_url}
                 alt={user.username}
                 style={{
                   width: '32px',
@@ -476,7 +476,7 @@ export const Navbar: React.FC = () => {
                   <UserCircle size={16} /> View Profile
                 </button>
 
-                <button 
+                <button
                   onClick={handleLogout}
                   style={{
                     display: 'flex',
