@@ -143,8 +143,8 @@ export const Dashboard: React.FC = () => {
           gap: '24px'
         }}>
           {projects.map((project) => (
-            <Link 
-              key={project.id} 
+            <Link
+              key={project.id}
               to={`/projects/${project.id}`}
               className="glass glass-interactive"
               style={{
@@ -173,7 +173,7 @@ export const Dashboard: React.FC = () => {
               }}>
                 {project.description || 'No description provided.'}
               </p>
-              
+
               <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -184,8 +184,8 @@ export const Dashboard: React.FC = () => {
                 color: 'var(--text-muted)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <img 
-                    src={project.owner_avatar} 
+                  <img
+                    src={project.owner_avatar}
                     alt={project.owner_name}
                     style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#444' }}
                   />
@@ -203,8 +203,8 @@ export const Dashboard: React.FC = () => {
 
       {/* Create Project Modal */}
       {isModalOpen && (
-        <ProjectModal 
-          onClose={() => setIsModalOpen(false)} 
+        <ProjectModal
+          onClose={() => setIsModalOpen(false)}
           onSuccess={handleProjectCreated}
         />
       )}

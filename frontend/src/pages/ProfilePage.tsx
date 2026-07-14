@@ -73,7 +73,7 @@ export const ProfilePage: React.FC = () => {
       }
     };
     load();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (field: keyof ProfileData, value: string) => {
@@ -395,7 +395,7 @@ export const ProfilePage: React.FC = () => {
             id="profile-email"
             value={form.email}
             editing={false}
-            onChange={() => {}}
+            onChange={() => { }}
             placeholder=""
             hint="Email cannot be changed"
           />
