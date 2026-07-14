@@ -50,7 +50,7 @@ export const dbGet = (sql, params = []) => {
 // Initialize schema
 export const initDb = async () => {
   console.log('Initializing database tables...');
-  
+
   // Users Table
   await dbRun(`
     CREATE TABLE IF NOT EXISTS users (
